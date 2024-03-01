@@ -17,7 +17,7 @@ jobs:
       - name: Convert Notebook to HTML
         run: |
           pip install nbconvert
-          jupyter nbconvert --to html digit_classifier.ipynb
+          jupyter nbconvert --to html digit_classifier.ipynb --output-dir docs
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
