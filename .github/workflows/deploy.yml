@@ -19,6 +19,9 @@ jobs:
           pip install nbconvert
           jupyter nbconvert --to html digit_classifier.ipynb --output-dir docs
 
+      - name: Rename HTML file to index.html
+        run: mv docs/digit_classifier.html docs/index.html
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
