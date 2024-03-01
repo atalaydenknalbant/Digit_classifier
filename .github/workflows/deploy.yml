@@ -1,0 +1,26 @@
+name: Update GitHub Pages on Jupyter Notebook change
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '*.ipynb'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Convert Notebook to HTML
+        run: |
+          pip install nbconvert
+          jupyter nbconvert --to html digit_classifier.ipynb
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
