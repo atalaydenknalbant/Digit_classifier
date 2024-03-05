@@ -21,10 +21,15 @@ jobs:
       - name: Rename HTML file to index.html
         run: mv docs/digit_classifier.html docs/index.html
 
-      - name: Convert Notebook and Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs/index.html
+          git commit -m "Deploy to GitHub Pages" -a
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
         with:
-          deploy_key: ${{ secrets.DEPLOY_KEY }}
-          publish_dir: ./docs
-          filename: index.html 
-          commit_message: "Deploy digit_classifier.ipynb updates"  
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
