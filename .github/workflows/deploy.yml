@@ -16,6 +16,7 @@ jobs:
 
       - name: Convert Notebooks to HTML
         run: |
+          pip install nbconvert jupyter
           nbconvert --to html --template classic --execute digit_classifier.ipynb docs/digit_classifier.html
 
       - name: Rename HTML file to index.html
