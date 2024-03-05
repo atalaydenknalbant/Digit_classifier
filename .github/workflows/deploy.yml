@@ -9,14 +9,13 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Convert Notebooks to HTML
         run: |
-          pip install nbconvert jupyter
           nbconvert --to html --template classic --execute digit_classifier.ipynb docs/digit_classifier.html
 
       - name: Rename HTML file to index.html
