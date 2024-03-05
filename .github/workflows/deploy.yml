@@ -6,7 +6,6 @@ on:
       - main
     paths:
       - '**'
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
