@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - '*.ipynb'
+      - '**'
 
 jobs:
   deploy:
@@ -14,10 +14,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Convert Notebook to HTML
+      - name: Convert Notebooks to HTML
         run: |
-          pip install nbconvert
-          jupyter nbconvert --to html digit_classifier.ipynb --output-dir docs
+          pip install nbconvert jupyter
+          nbconvert --to html --template classic --execute digit_classifier.ipynb docs/digit_classifier.html
 
       - name: Rename HTML file to index.html
         run: mv docs/digit_classifier.html docs/index.html
