@@ -14,10 +14,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Convert Notebooks to HTML
+      - name: Convert Notebook to HTML
         run: |
-          pip install nbconvert jupyter
-          nbconvert --to html --template classic --execute digit_classifier.ipynb docs/digit_classifier.html
+          python -m pip install nbconvert
+          python -m jupyter nbconvert --to html digit_classifier.ipynb --output-dir docs
 
       - name: Rename HTML file to index.html
         run: mv docs/digit_classifier.html docs/index.html
