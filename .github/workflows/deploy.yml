@@ -21,15 +21,18 @@ jobs:
       - name: Rename HTML file to index.html
         run: mv docs/digit_classifier.html docs/index.html
       
-      - name: Set up DEPLOY_KEY
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
-      
-      - name: Deploy to GitHub Pages
+      - name: Convert Notebook to HTML
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add docs/index.html
-          git commit -m "Deploy to GitHub Pages" -a
-          git push
+          python -m pip install nbconvert
+          python -m jupyter nbconvert --to html digit_classifier.ipynb --output-dir docs
+
+      - name: Rename HTML file to index.html
+        run: mv docs/digit_classifier.html docs/index.html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.DEPLOY_KEY }}
+          publish_dir: ./docs 
+          publish_branch: main
+          keep_files: true
