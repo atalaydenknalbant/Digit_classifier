@@ -22,7 +22,7 @@ jobs:
         run: mv docs/digit_classifier.html docs/index.html
       
       - name: Set up DEPLOY_KEY
-        uses: webfactory/ssh-agent@v0.5.3
+        uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
       
