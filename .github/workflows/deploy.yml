@@ -20,16 +20,16 @@ jobs:
 
       - name: Rename HTML file to index.html
         run: mv docs/digit_classifier.html docs/index.html
-
-      - name: Commit files
+      
+      - name: Set up DEPLOY_KEY
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+      
+      - name: Deploy to GitHub Pages
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add docs/index.html
           git commit -m "Deploy to GitHub Pages" -a
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.DEPLOY_KEY }}
-          branch: main
+          git push
